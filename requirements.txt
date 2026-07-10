@@ -1,0 +1,4 @@
+fastapi
+uvicorn
+pydantic
+# plus: pip install -e ../ukbe-core  (crisis detection, semantic validator, notary)
