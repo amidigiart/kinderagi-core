@@ -15,7 +15,7 @@ import time
 import urllib.request
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel
 
@@ -33,7 +33,26 @@ KEY_FILE = DATA / "notary_keys.json"
 OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434")
 MODEL = os.getenv("KINDERAGI_MODEL", "gemma3:4b")
 QID = os.getenv("QID", "1820209090023")
-PARENT_PIN = os.getenv("KINDERAGI_PARENT_PIN", "1234")  # MVP: schimba-l din env!
+PARENT_PIN = os.getenv("KINDERAGI_PARENT_PIN", "1234")  # MVP local: schimba-l din env!
+ENV = os.getenv("KINDERAGI_ENV", "dev")                  # "prod" pe server
+ACCESS_CODE = os.getenv("KINDERAGI_ACCESS_CODE", "")     # optional: poarta pt piloturi
+
+if ENV == "prod" and PARENT_PIN == "1234":
+    raise RuntimeError(
+        "Refuz sa pornesc in productie cu PIN-ul implicit. "
+        "Seteaza KINDERAGI_PARENT_PIN in mediu."
+    )
+
+# rate limit simplu in memorie (protejeaza un VPS mic; nu e un WAF)
+_RATE: dict[str, list[float]] = {}
+RATE_MAX, RATE_WINDOW = 20, 60.0
+
+def _rate_ok(ip: str) -> bool:
+    now = time.time()
+    hits = [t for t in _RATE.get(ip, []) if now - t < RATE_WINDOW]
+    hits.append(now)
+    _RATE[ip] = hits
+    return len(hits) <= RATE_MAX
 
 SYSTEM_PROMPT = (
     "Ești AMI, un prieten blând din Pădurea de Cod, care vorbește cu un copil "
@@ -101,6 +120,7 @@ MOTOR = ResonanceMotor(seed=7)
 class ChatIn(BaseModel):
     message: str
     locale: str = "RO"
+    access_code: str = ""
 
 
 @app.get("/")
@@ -124,7 +144,12 @@ def health():
 
 
 @app.post("/api/chat")
-def chat(inp: ChatIn):
+def chat(inp: ChatIn, request: Request):
+    ip = request.client.host if request.client else "?"
+    if not _rate_ok(ip):
+        raise HTTPException(429, "prea multe mesaje — ia o pauză scurtă")
+    if ACCESS_CODE and inp.access_code != ACCESS_CODE:
+        raise HTTPException(403, "cod de acces necesar (instanță pilot privată)")
     msg = inp.message.strip()
     if not msg:
         raise HTTPException(400, "mesaj gol")

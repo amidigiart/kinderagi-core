@@ -1,0 +1,40 @@
+# KinderAGI Core - stack complet self-host (app + LLM local + HTTPS)
+# Porneste: docker compose up -d
+# Prima data: docker compose exec ollama ollama pull gemma3:4b
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    restart: unless-stopped
+    env_file: .env            # copiaza .env.example -> .env si completeaza
+    environment:
+      - KINDERAGI_ENV=prod
+      - OLLAMA_URL=http://ollama:11434
+    volumes:
+      - app_data:/app/data    # jurnalul semnat + cheile notarului
+    depends_on:
+      - ollama
+
+  ollama:
+    image: ollama/ollama:latest
+    restart: unless-stopped
+    volumes:
+      - ollama_models:/root/.ollama
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+    depends_on:
+      - app
+
+volumes:
+  app_data:
+  ollama_models:
+  caddy_data:

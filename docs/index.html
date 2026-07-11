@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KinderAGI — companion AI local-first pentru copii, cu strat de siguranță verificabil</title>
+<meta name="description" content="Prototip open-source: companion AI care rulează integral local, cu detecție de criză, jurnal semnat criptografic pentru părinți și un motor de rezonanță publicat științific. Onest despre ce este și ce nu este.">
+<style>
+  :root{--bg:#0e2a1c;--panel:#143826;--ink:#f2f7f0;--soft:#bcd9c4;--accent:#ffd166;--line:#2b5c40}
+  *{box-sizing:border-box;margin:0}
+  body{font-family:Georgia,'Times New Roman',serif;background:
+    radial-gradient(1100px 480px at 15% -8%, #1b4a30 0%, transparent 60%),
+    radial-gradient(800px 380px at 92% 108%, #123722 0%, transparent 55%),
+    var(--bg);color:var(--ink);line-height:1.65}
+  .wrap{max-width:880px;margin:auto;padding:24px 20px 60px}
+  header{text-align:center;padding:42px 0 10px}
+  h1{font-size:2.1rem;letter-spacing:.5px}
+  .tag{color:var(--accent);font-style:italic;margin-top:8px;font-size:1.05rem}
+  .lang{position:fixed;top:14px;right:16px;z-index:9}
+  .lang button{background:var(--panel);color:var(--soft);border:1px solid var(--line);
+    padding:6px 12px;border-radius:8px;cursor:pointer;font-family:inherit}
+  .lang button.on{color:#2b2205;background:var(--accent);font-weight:700}
+  section{background:rgba(20,56,38,.55);border:1px solid var(--line);border-radius:16px;
+    padding:26px 28px;margin:22px 0}
+  h2{color:var(--accent);font-size:1.25rem;margin-bottom:14px}
+  p{margin-bottom:12px}
+  ul{margin:0 0 12px 22px}
+  li{margin-bottom:8px}
+  .pipeline{font-family:ui-monospace,Consolas,monospace;font-size:.85rem;background:#0b2115;
+    border:1px solid var(--line);border-radius:10px;padding:16px;overflow-x:auto;
+    white-space:pre;color:var(--soft);line-height:1.9}
+  code{font-family:ui-monospace,Consolas,monospace;background:#0b2115;padding:2px 7px;
+    border-radius:6px;font-size:.9em;border:1px solid var(--line)}
+  pre{background:#0b2115;border:1px solid var(--line);border-radius:10px;padding:16px;
+    overflow-x:auto;font-size:.85rem;line-height:1.7;margin-bottom:12px}
+  a{color:var(--accent)}
+  .warn{border-color:var(--accent)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+  .card{background:#0f2d1d;border:1px solid var(--line);border-radius:12px;padding:16px}
+  .card b{color:var(--accent)}
+  footer{text-align:center;color:var(--soft);font-size:.85rem;padding-top:28px}
+  footer a{color:var(--soft)}
+  .en{display:none}
+  body.lang-en .en{display:block}
+  body.lang-en .ro{display:none}
+  span.en{display:none} body.lang-en span.en{display:inline} body.lang-en span.ro{display:none}
+</style>
+</head>
+<body>
+<div class="lang">
+  <button id="bro" class="on" onclick="setLang('ro')">RO</button>
+  <button id="ben" onclick="setLang('en')">EN</button>
+</div>
+
+<div class="wrap">
+<header>
+  <h1>🌲 KinderAGI</h1>
+  <div class="tag ro">O întrebare bună face lumina să crească.</div>
+  <div class="tag en">A good question makes the light grow.</div>
+</header>
+
+<section class="ro">
+  <h2>Ce este</h2>
+  <p><strong>Un prototip open-source de companion AI pentru copii (7–12 ani), construit invers decât industria:</strong> întâi stratul de siguranță, apoi conversația.</p>
+  <ul>
+    <li><strong>Rulează integral local.</strong> Modelul de limbaj e pe calculatorul tău (Ollama). Nicio conversație a copilului nu părăsește mașina — nu există server central, nu există cont, nu există date de vândut.</li>
+    <li><strong>Fiecare mesaj trece prin detecție de criză</strong> înainte de a ajunge la AI, și <strong>fiecare răspuns e validat</strong> înainte de a ajunge la copil. Semnalele acute întrerup conversația și afișează resurse reale de ajutor.</li>
+    <li><strong>Jurnal semnat criptografic pentru părinți</strong> (Ed25519): vezi tot ce s-a vorbit, cu dovadă de nealterare pe fiecare rând, și poți șterge tot, oricând, local.</li>
+    <li><strong>MOTORUL:</strong> registrul conversațional (când AMI explică vs. când întreabă) e decis de un sistem de ecuații de sincronizare — analiza lui dinamică e <a href="https://doi.org/10.5281/zenodo.21269201">publicată și reprodusă independent</a>, iar pragul de cuplare vine dintr-o regulă de calibrare derivată matematic, nu ghicită.</li>
+  </ul>
+</section>
+
+<section class="en">
+  <h2>What it is</h2>
+  <p><strong>An open-source prototype of an AI companion for children (7–12), built in the opposite order to the industry:</strong> safety layer first, conversation second.</p>
+  <ul>
+    <li><strong>Runs entirely locally.</strong> The language model lives on your own machine (Ollama). No child conversation ever leaves the computer — no central server, no account, no data to sell.</li>
+    <li><strong>Every message passes crisis detection</strong> before reaching the AI, and <strong>every reply is validated</strong> before reaching the child. Acute signals interrupt the conversation and surface real help resources.</li>
+    <li><strong>A cryptographically signed parent journal</strong> (Ed25519): see everything that was said, with per-row tamper evidence, and delete everything, any time, locally.</li>
+    <li><strong>The ENGINE:</strong> the conversational register (when AMI explains vs. when it asks) is decided by a system of synchronization equations — their dynamical analysis is <a href="https://doi.org/10.5281/zenodo.21269201">published and independently reproduced</a>, and the coupling floor comes from a mathematically derived calibration rule, not a guess.</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="ro">Cum curge un mesaj</span><span class="en">How a message flows</span></h2>
+  <div class="pipeline">copil / child
+   │
+   ▼
+[detecție criză · crisis detection]──ACUT──▶ resurse reale + flag părinte
+   │                                         real resources + parent flag
+   ▼
+[MOTORUL · REAI engine] ──▶ registru: deschis / întreabă / reancorare
+   │                          register: open / ask / re-anchor
+   ▼
+[LLM local · gemma3 via Ollama]
+   │
+   ▼
+[validare răspuns · output harm-check]──nesigur──▶ înlocuit + flag
+   │
+   ▼
+copil / child          totul → jurnal semnat Ed25519 → părinte
+                       everything → signed journal → parent</div>
+</section>
+
+<section class="warn ro">
+  <h2>Ce NU este — spus înainte să întrebi</h2>
+  <ul>
+    <li><strong>Nu e un produs finit</strong> și nu e destinat folosirii nesupravegheate de către copii. E un prototip de arhitectură (v0.2).</li>
+    <li>Detecția de criză e o euristică v0 (RO/EN), <strong>nevalidată clinic</strong> — nu înlocuiește supravegherea unui adult.</li>
+    <li>Nu are validare pedagogică formală, nu are studii pe utilizatori, nu are „mii de familii mulțumite" — are cod public și teste care rulează.</li>
+    <li>Nu colectăm nimic pentru că nu avem unde: pagina asta e statică, aplicația e a ta.</li>
+  </ul>
+</section>
+
+<section class="warn en">
+  <h2>What it is NOT — stated before you ask</h2>
+  <ul>
+    <li><strong>Not a finished product</strong>, not intended for unsupervised use by children. It is an architecture prototype (v0.2).</li>
+    <li>Crisis detection is a v0 heuristic (RO/EN), <strong>not clinically validated</strong> — it does not replace adult supervision.</li>
+    <li>No formal pedagogical validation, no user studies, no "thousands of happy families" — public code and running tests instead.</li>
+    <li>We collect nothing because there is nowhere to collect it: this page is static, the app is yours.</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="ro">Rulează-l acasă (10 minute)</span><span class="en">Run it at home (10 minutes)</span></h2>
+  <pre>git clone https://github.com/amidigiart/kinderagi-core
+cd kinderagi-core
+pip install -r requirements.txt
+pip install "ukbe-core @ git+https://github.com/amidigiart/ukbe-core@main"
+# instaleaza Ollama (ollama.com) apoi:  ollama pull gemma3:4b
+python app.py        # → http://localhost:8123</pre>
+  <p class="ro">Pentru un server de familie/școală cu HTTPS: <a href="https://github.com/amidigiart/kinderagi-core/tree/main/deploy">ghidul de deploy</a> (Docker + Caddy, ~€4/lună).</p>
+  <p class="en">For a family/school server with HTTPS: <a href="https://github.com/amidigiart/kinderagi-core/tree/main/deploy">the deploy guide</a> (Docker + Caddy, ~€4/month).</p>
+</section>
+
+<section>
+  <h2><span class="ro">Fundația verificabilă</span><span class="en">The verifiable foundation</span></h2>
+  <div class="grid">
+    <div class="card"><b>📄 <span class="ro">Lucrarea</span><span class="en">The paper</span></b><br>
+      <span class="ro">Analiza dinamică a motorului: bifurcație Adler, regulă de calibrare, reproducere independentă.</span>
+      <span class="en">The engine's dynamical analysis: Adler bifurcation, calibration rule, independent reproduction.</span><br>
+      <a href="https://github.com/amidigiart/p6-adler-ghost-peak">p6-adler-ghost-peak</a> · <a href="https://doi.org/10.5281/zenodo.21269201">DOI</a></div>
+    <div class="card"><b>⚙️ <span class="ro">Motorul</span><span class="en">The engine</span></b><br>
+      <span class="ro">Kuramoto + Kalman + cuplare adaptivă, criptografie post-cuantică, 102/102 teste.</span>
+      <span class="en">Kuramoto + Kalman + adaptive coupling, post-quantum crypto, 102/102 tests.</span><br>
+      <a href="https://github.com/amidigiart/ukbe-core">ukbe-core</a> (Apache-2.0)</div>
+    <div class="card"><b>🌲 <span class="ro">Companionul</span><span class="en">The companion</span></b><br>
+      <span class="ro">Acest proiect: siguranță + jurnal semnat + MOTORUL, 17/17 teste.</span>
+      <span class="en">This project: safety + signed journal + the ENGINE, 17/17 tests.</span><br>
+      <a href="https://github.com/amidigiart/kinderagi-core">kinderagi-core</a> (Apache-2.0)</div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="ro">Cine</span><span class="en">Who</span></h2>
+  <p class="ro">Mihai Roșca — fost învățător (definitivat), cercetător independent, Brăila, România. Construit fără finanțare, pe hardware obișnuit, pentru fiul lui și pentru copiii ca el. Tot ce afirmă proiectul e verificabil în cod public — nimic nu trebuie crezut pe cuvânt.</p>
+  <p class="en">Mihai Roșca — former schoolteacher, independent researcher, Brăila, Romania. Built with no funding, on ordinary hardware, for his son and children like him. Every claim this project makes is verifiable in public code — nothing has to be taken on faith.</p>
+  <p>ORCID: <a href="https://orcid.org/0009-0001-1422-6209">0009-0001-1422-6209</a> · GitHub: <a href="https://github.com/amidigiart">amidigiart</a> · <a href="mailto:mihairosca1982@gmail.com">mihairosca1982@gmail.com</a></p>
+</section>
+
+<footer>
+  <span class="ro">KinderAGI — parte din Pădurea de Cod · cod: Apache-2.0 · conținut: CC BY 4.0 · fără cookies, fără tracking, fără cont</span>
+  <span class="en">KinderAGI — part of Pădurea de Cod (The Code Forest) · code: Apache-2.0 · content: CC BY 4.0 · no cookies, no tracking, no accounts</span>
+</footer>
+</div>
+
+<script>
+function setLang(l){
+  document.body.className = l==='en' ? 'lang-en' : '';
+  document.getElementById('bro').className = l==='ro' ? 'on' : '';
+  document.getElementById('ben').className = l==='en' ? 'on' : '';
+  document.documentElement.lang = l;
+  try{localStorage.setItem('kag_lang', l)}catch(e){}
+}
+try{const s=localStorage.getItem('kag_lang'); if(s==='en')setLang('en');}catch(e){}
+</script>
+</body>
+</html>

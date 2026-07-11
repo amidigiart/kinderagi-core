@@ -1,0 +1,13 @@
+# HTTPS automat (Let's Encrypt) pentru instanta pilot.
+# app.kinderagi.com = aplicatia (privata, cu KINDERAGI_ACCESS_CODE setat).
+# Landing-ul public kinderagi.com se serveste separat (GitHub Pages).
+
+app.kinderagi.com {
+	reverse_proxy app:8123
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "no-referrer"
+	}
+}
