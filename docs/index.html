@@ -5,6 +5,64 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>KinderAGI — companion AI local-first pentru copii, cu strat de siguranță verificabil</title>
 <meta name="description" content="Prototip open-source: companion AI care rulează integral local, cu detecție de criză, jurnal semnat criptografic pentru părinți și un motor de rezonanță publicat științific. Onest despre ce este și ce nu este.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://kinderagi.com/#software",
+      "name": "KinderAGI Core",
+      "description": "Local-first AI companion prototype for children (7-12): crisis detection on every message, output validation, Ed25519-signed parent journal, and a conversational register driven by a published synchronization-dynamics engine. Architecture prototype v0.2 - not a finished product, not for unsupervised use.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Linux, macOS, Windows",
+      "url": "https://kinderagi.com",
+      "codeRepository": "https://github.com/amidigiart/kinderagi-core",
+      "license": "https://spdx.org/licenses/Apache-2.0.html",
+      "programmingLanguage": "Python",
+      "softwareRequirements": ["Python >= 3.10", "Ollama", "gemma3:4b", "ukbe-core"],
+      "author": { "@id": "https://kinderagi.com/#person" },
+      "isBasedOn": { "@id": "https://kinderagi.com/#engine" }
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "@id": "https://kinderagi.com/#engine",
+      "name": "ukbe-core",
+      "description": "The REAI resonance engine: Kuramoto dynamics + Kalman intent estimation + adaptive coupling with an Adler-derived floor, plus a post-quantum notarization stack. 102/102 tests.",
+      "codeRepository": "https://github.com/amidigiart/ukbe-core",
+      "license": "https://spdx.org/licenses/Apache-2.0.html",
+      "programmingLanguage": "Python",
+      "author": { "@id": "https://kinderagi.com/#person" },
+      "citation": { "@id": "https://kinderagi.com/#paper" }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://kinderagi.com/#paper",
+      "name": "Ghost Sensitivity Peaks in Adaptive Phase-Coupled Systems: A Disguised Adler Bifurcation and a Calibration Rule for Coupling Floors",
+      "sameAs": "https://doi.org/10.5281/zenodo.21269201",
+      "identifier": "10.5281/zenodo.21269201",
+      "url": "https://github.com/amidigiart/p6-adler-ghost-peak",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "keywords": "Kuramoto model, Adler equation, SNIC bifurcation, critical slowing down, adaptive coupling, AI alignment, reproducibility",
+      "abstract": "A non-monotonic sensitivity peak observed while calibrating an adaptive Kuramoto coupling floor is identified as a measurement artifact: critical slowing down near a SNIC/Adler locking threshold seen through a fixed observation window. The scaling law tau = (K^2 - dw^2)^(-1/2) is verified on the isolated Adler equation and the full 30-oscillator system (measured-to-predicted ratios 0.985-0.999), all claims reproduced by an independent reimplementation, and a calibration rule beta_min >= m*dw_max/K_ext with a derived margin is obtained.",
+      "author": { "@id": "https://kinderagi.com/#person" },
+      "datePublished": "2026-07-09"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://kinderagi.com/#person",
+      "name": "Mihai Roșca",
+      "sameAs": [
+        "https://orcid.org/0009-0001-1422-6209",
+        "https://github.com/amidigiart"
+      ],
+      "email": "mailto:contact@kinderagi.com",
+      "jobTitle": "Independent Researcher",
+      "address": { "@type": "PostalAddress", "addressLocality": "Brăila", "addressCountry": "RO" }
+    }
+  ]
+}
+</script>
 <style>
   :root{--bg:#0e2a1c;--panel:#143826;--ink:#f2f7f0;--soft:#bcd9c4;--accent:#ffd166;--line:#2b5c40}
   *{box-sizing:border-box;margin:0}
