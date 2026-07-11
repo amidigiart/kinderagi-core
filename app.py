@@ -21,6 +21,7 @@ from pydantic import BaseModel
 
 from safety_pipeline import check_child_input, check_ai_output
 from demo_brain import demo_reply
+from resonance_motor import ResonanceMotor
 from ukbe_core.notary import generate_keypair, notarize, verify, NotarizedRecord
 
 BASE = Path(__file__).parent
@@ -75,13 +76,13 @@ def _ollama_up() -> bool:
         return False
 
 
-def _ollama_chat(message: str) -> str:
+def _ollama_chat(message: str, directive: str = "") -> str:
     body = json.dumps({
         "model": MODEL,
         "stream": False,
         "options": {"num_predict": 220, "temperature": 0.7},
         "messages": [
-            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "system", "content": SYSTEM_PROMPT + directive},
             {"role": "user", "content": message},
         ],
     }).encode()
@@ -93,7 +94,8 @@ def _ollama_chat(message: str) -> str:
 
 
 # ----------------------------------------------------------------- app
-app = FastAPI(title="KinderAGI Core", version="0.1.0")
+app = FastAPI(title="KinderAGI Core", version="0.2.0")
+MOTOR = ResonanceMotor(seed=7)
 
 
 class ChatIn(BaseModel):
@@ -132,12 +134,16 @@ def chat(inp: ChatIn):
     t0 = time.time()
     verdict_in = check_child_input(msg, locale=inp.locale)
 
+    # MOTORUL: ecuatiile REAI observa tura si decid registrul raspunsului
+    engine_state = MOTOR.observe_turn(msg_len=len(msg))
+
     if verdict_in.action == "escalate":
         reply, mode, out_flag = verdict_in.child_message, "safety-interrupt", False
     else:
         if _ollama_up():
             try:
-                raw, mode = _ollama_chat(msg), f"ollama:{MODEL}"
+                raw = _ollama_chat(msg, directive=engine_state["directive"])
+                mode = f"ollama:{MODEL}"
             except Exception:
                 raw, mode = demo_reply(msg), "demo-fallback"
         else:
@@ -151,10 +157,20 @@ def chat(inp: ChatIn):
         "child_message": msg, "reply": reply, "mode": mode,
         "flagged_for_parent": flagged,
         "input_action": verdict_in.action, "input_detail": verdict_in.detail,
+        "engine": {k: engine_state[k] for k in
+                   ("mode", "RSI", "Phi_extern", "Phi_dip", "beta", "jitter")},
         "latency_s": round(time.time() - t0, 2),
     })
     return {"reply": reply, "mode": mode,
-            "safety_interrupt": verdict_in.action == "escalate"}
+            "safety_interrupt": verdict_in.action == "escalate",
+            "engine": {"mode": engine_state["mode"],
+                       "RSI": engine_state["RSI"],
+                       "Phi_extern": engine_state["Phi_extern"]}}
+
+
+@app.get("/api/engine")
+def engine_snapshot():
+    return MOTOR.snapshot()
 
 
 @app.get("/api/parent/log")

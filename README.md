@@ -71,3 +71,33 @@ clinically-reviewed pattern lists, model content-tuning, NLnet proposal.
 ---
 
 © 2026 Mihai Roșca · Apache-2.0 (aligned with ukbe-core open-core licensing)
+
+## MOTORUL (v0.2) — the REAI equations drive the companion
+
+As of v0.2, the companion's conversational register is decided by the REAI
+engine itself (ukbe-core `UKBEEngine`: Kuramoto population + Kalman intent
+estimate + adaptive α/β with the Adler-derived floor):
+
+- The reference phase advances one beat (2π) per child message; irregular
+  cadence and abrupt message-length changes enter as phase perturbations —
+  an honest **v0 proxy** for the unsolved P1 problem (stated, not hidden).
+- Each turn, the engine tracks the reference; the mode is decided by the
+  **coherence dip within the turn** (the sensitivity metric from the P6
+  paper, applied knowingly — reading only end-of-turn coherence would hide
+  the transient, the exact fixed-window artifact the paper documents).
+- `Φ_dip ≥ 0.75` → **open** (normal register) · `0.40–0.75` → **ask**
+  (no new assertions; reflect + one clarifying question) ·
+  `< 0.40` → **re-anchor** (2 sentences max, verify understanding).
+  This is REAI design principle 2 ("ask when unsure") executed by the
+  equations, not by a keyword heuristic.
+- `β_min` comes from `recommend_beta_min()` (the paper's calibration rule),
+  never from a guessed constant; tests assert β never drops below it.
+- Engine state (mode, RSI, Φ_extern, Φ_dip, β, jitter) is returned with
+  every reply, logged in the signed parent journal, and exposed at
+  `/api/engine`. The child UI shows it as the "forest light".
+
+Limits, plainly: the cadence/length proxy is a design choice, not a
+validated measurement of intent; thresholds are v0 design values; none of
+this is clinically or pedagogically validated. It demonstrates the
+architecture — equations with a published, reproduced dynamical analysis
+deciding real companion behavior — not a finished product.

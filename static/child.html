@@ -39,6 +39,7 @@
 <header>
   <h1><span class="tree">🌲</span> Pădurea de Cod <span class="tree">🌲</span></h1>
   <div class="sub">O întrebare bună face lumina să crească.</div>
+  <div class="sub" id="light" title="Lumina pădurii = rezonanța conversației (motorul REAI)">🌲🌲🌲 pădurea e senină</div>
 </header>
 
 <div id="chat">
@@ -72,6 +73,13 @@ f.addEventListener('submit',async e=>{
     const d=await r.json();
     w.innerHTML='<b>AMI:</b> '+(d.reply||'…').replace(/</g,'&lt;');
     if(d.safety_interrupt)w.classList.add('safety');
+    if(d.engine){
+      const n=Math.max(1,Math.round(d.engine.Phi_extern*4)+1);
+      const words={deschis:'pădurea e senină',intreaba:'pădurea ascultă atent',
+                   reancorare:'pădurea își caută poteca'};
+      document.getElementById('light').textContent=
+        '🌲'.repeat(n)+' '+(words[d.engine.mode]||'');
+    }
   }catch(_){w.innerHTML='<b>AMI:</b> Pădurea are o pană de curent. Mai încearcă o dată?';}
   go.disabled=false;inp.focus();
 });
