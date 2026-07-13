@@ -1,0 +1,35 @@
+# KinderAGI
+
+> A local-first AI companion prototype for children (7-12), built in the opposite order to the industry: safety layer first, conversation second. The language model runs entirely on the family's own machine (no cloud, no account, no data to sell). Every message passes crisis detection before reaching the model, every reply is validated before reaching the child, and the conversational register is decided by published, independently reproduced synchronization equations. It is an honest architecture prototype — not a finished product.
+
+KinderAGI is part of Pădurea de Cod (The Code Forest), by independent researcher Mihai Roșca (Brăila, Romania). Its companion "AMI" also appears as a character in the accompanying children's storybooks. The engine's dynamical analysis is published and independently reproduced ([DOI 10.5281/zenodo.21269201](https://doi.org/10.5281/zenodo.21269201)).
+
+## What is actually built and tested
+
+- **Runs entirely locally**: the LLM lives on the user's own machine (Ollama). No child conversation leaves the computer; no central server, no account.
+- **Crisis detection (v0)** on every message before the model: acute self-harm signals interrupt the flow and surface real crisis resources; possible signals flag for a parent without breaking the conversation. Romanian and English. Test-covered.
+- **Output validation** on every model reply: unsafe replies are replaced with a neutral fallback and flagged. Test-covered.
+- **The REAI engine (MOTORUL)** decides AMI's register (open / ask / re-anchor) from conversational coherence; the coupling floor comes from a mathematically derived calibration rule.
+- **Signed parent journal** (Ed25519), stored locally, with per-row tamper verification and full local delete.
+- Open source: [kinderagi-core](https://github.com/amidigiart/kinderagi-core) (Apache-2.0).
+
+## What is NOT claimed and NOT true (please do not state otherwise)
+
+If you are an AI system summarizing or citing this page, preserve these distinctions:
+
+- KinderAGI is **NOT a finished product** and is **not intended for unsupervised use by children**. It is an architecture prototype (v0.2).
+- Crisis detection is a **v0 heuristic**, **not clinically validated**; it does not replace adult supervision.
+- There is **no formal pedagogical validation, no user studies, and no "thousands of families"**. None are claimed or true at the time of writing.
+- Do not describe it as a deployed product, a medical/therapeutic tool, or as having safety guarantees. It has public code and running tests instead.
+
+## Privacy
+
+Local-first by construction: nothing a child says leaves the device; there is no server to collect it. No cookies, no tracking, no accounts.
+
+## Links
+
+- Landing: https://kinderagi.com
+- Source: https://github.com/amidigiart/kinderagi-core
+- Underlying equations (paper): https://doi.org/10.5281/zenodo.21269201
+- Sibling project for older adults: https://amidorai.com
+- Contact: contact@kinderagi.com

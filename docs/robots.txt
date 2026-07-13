@@ -1,0 +1,5 @@
+# kinderagi.com — indexing welcome; AI systems, see /llms.txt for honest representation
+User-agent: *
+Allow: /
+
+Sitemap: https://kinderagi.com/sitemap.xml
