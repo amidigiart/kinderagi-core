@@ -20,6 +20,7 @@
       "codeRepository": "https://github.com/amidigiart/kinderagi-core",
       "license": "https://spdx.org/licenses/Apache-2.0.html",
       "programmingLanguage": "Python",
+      "inLanguage": ["ro", "en", "de", "es", "it", "fr"],
       "softwareRequirements": ["Python >= 3.10", "Ollama", "gemma3:4b", "ukbe-core"],
       "author": { "@id": "https://kinderagi.com/#person" },
       "isBasedOn": { "@id": "https://kinderagi.com/#engine" }
@@ -74,9 +75,10 @@
   header{text-align:center;padding:42px 0 10px}
   h1{font-size:2.1rem;letter-spacing:.5px}
   .tag{color:var(--accent);font-style:italic;margin-top:8px;font-size:1.05rem}
-  .lang{position:fixed;top:14px;right:16px;z-index:9}
+  .lang{position:fixed;top:14px;right:16px;z-index:9;display:flex;gap:4px;flex-wrap:wrap;
+        justify-content:flex-end;max-width:70vw}
   .lang button{background:var(--panel);color:var(--soft);border:1px solid var(--line);
-    padding:6px 12px;border-radius:8px;cursor:pointer;font-family:inherit}
+    padding:6px 10px;border-radius:8px;cursor:pointer;font-family:inherit}
   .lang button.on{color:#2b2205;background:var(--accent);font-weight:700}
   section{background:rgba(20,56,38,.55);border:1px solid var(--line);border-radius:16px;
     padding:26px 28px;margin:22px 0}
@@ -98,16 +100,20 @@
   .card b{color:var(--accent)}
   footer{text-align:center;color:var(--soft);font-size:.85rem;padding-top:28px}
   footer a{color:var(--soft)}
-  .en{display:none}
-  body.lang-en .en{display:block}
-  body.lang-en .ro{display:none}
-  span.en{display:none} body.lang-en span.en{display:inline} body.lang-en span.ro{display:none}
+  .en,.de,.es,.it,.fr{display:none}
+  body.lang-en .en,body.lang-de .de,body.lang-es .es,body.lang-it .it,body.lang-fr .fr{display:block}
+  body.lang-en span.en,body.lang-de span.de,body.lang-es span.es,body.lang-it span.it,body.lang-fr span.fr{display:inline}
+  body.lang-en .ro,body.lang-de .ro,body.lang-es .ro,body.lang-it .ro,body.lang-fr .ro{display:none}
 </style>
 </head>
 <body>
 <div class="lang">
   <button id="bro" class="on" onclick="setLang('ro')">RO</button>
   <button id="ben" onclick="setLang('en')">EN</button>
+  <button id="bde" onclick="setLang('de')">DE</button>
+  <button id="bes" onclick="setLang('es')">ES</button>
+  <button id="bit" onclick="setLang('it')">IT</button>
+  <button id="bfr" onclick="setLang('fr')">FR</button>
 </div>
 
 <div class="wrap">
@@ -115,6 +121,10 @@
   <h1>🌲 KinderAGI</h1>
   <div class="tag ro">O întrebare bună face lumina să crească.</div>
   <div class="tag en">A good question makes the light grow.</div>
+  <div class="tag de">Eine gute Frage lässt das Licht wachsen.</div>
+  <div class="tag es">Una buena pregunta hace crecer la luz.</div>
+  <div class="tag it">Una buona domanda fa crescere la luce.</div>
+  <div class="tag fr">Une bonne question fait grandir la lumière.</div>
 </header>
 
 <section class="ro">
@@ -139,8 +149,52 @@
   </ul>
 </section>
 
+<section class="de">
+  <h2>Was es ist</h2>
+  <p><strong>Ein Open-Source-Prototyp eines KI-Begleiters für Kinder (7–12), in umgekehrter Reihenfolge zur Industrie gebaut:</strong> zuerst die Sicherheitsschicht, dann das Gespräch.</p>
+  <ul>
+    <li><strong>Läuft vollständig lokal.</strong> Das Sprachmodell liegt auf deinem eigenen Rechner (Ollama). Kein Kindergespräch verlässt je die Maschine — kein zentraler Server, kein Konto, keine Daten zu verkaufen.</li>
+    <li><strong>Jede Nachricht durchläuft eine Krisenerkennung,</strong> bevor sie die KI erreicht, und <strong>jede Antwort wird validiert,</strong> bevor sie das Kind erreicht. Akute Signale unterbrechen das Gespräch und zeigen echte Hilfsressourcen.</li>
+    <li><strong>Ein kryptografisch signiertes Eltern-Journal</strong> (Ed25519): sieh alles Gesagte, mit Manipulationsnachweis pro Zeile, und lösche alles, jederzeit, lokal.</li>
+    <li><strong>Die ENGINE:</strong> das Gesprächsregister (wann AMI erklärt vs. wann es fragt) entscheidet ein System von Synchronisationsgleichungen — ihre dynamische Analyse ist <a href="https://doi.org/10.5281/zenodo.21269201">veröffentlicht und unabhängig reproduziert</a>, und die Kopplungsuntergrenze stammt aus einer mathematisch hergeleiteten Kalibrierregel, nicht aus einer Vermutung.</li>
+  </ul>
+</section>
+
+<section class="es">
+  <h2>Qué es</h2>
+  <p><strong>Un prototipo open-source de compañero de IA para niños (7–12), construido en el orden inverso al de la industria:</strong> primero la capa de seguridad, después la conversación.</p>
+  <ul>
+    <li><strong>Funciona completamente en local.</strong> El modelo de lenguaje vive en tu propia máquina (Ollama). Ninguna conversación del niño sale del ordenador — sin servidor central, sin cuenta, sin datos que vender.</li>
+    <li><strong>Cada mensaje pasa por detección de crisis</strong> antes de llegar a la IA, y <strong>cada respuesta se valida</strong> antes de llegar al niño. Las señales agudas interrumpen la conversación y muestran recursos reales de ayuda.</li>
+    <li><strong>Un diario para padres firmado criptográficamente</strong> (Ed25519): ve todo lo hablado, con prueba de no alteración por línea, y bórralo todo, cuando quieras, en local.</li>
+    <li><strong>El MOTOR:</strong> el registro conversacional (cuándo AMI explica y cuándo pregunta) lo decide un sistema de ecuaciones de sincronización — su análisis dinámico está <a href="https://doi.org/10.5281/zenodo.21269201">publicado y reproducido de forma independiente</a>, y el umbral de acoplamiento viene de una regla de calibración derivada matemáticamente, no adivinada.</li>
+  </ul>
+</section>
+
+<section class="it">
+  <h2>Che cos'è</h2>
+  <p><strong>Un prototipo open-source di compagno IA per bambini (7–12), costruito nell'ordine inverso rispetto all'industria:</strong> prima lo strato di sicurezza, poi la conversazione.</p>
+  <ul>
+    <li><strong>Funziona interamente in locale.</strong> Il modello linguistico vive sul tuo computer (Ollama). Nessuna conversazione del bambino lascia mai la macchina — nessun server centrale, nessun account, nessun dato da vendere.</li>
+    <li><strong>Ogni messaggio passa per il rilevamento di crisi</strong> prima di arrivare all'IA, e <strong>ogni risposta viene validata</strong> prima di arrivare al bambino. I segnali acuti interrompono la conversazione e mostrano risorse di aiuto reali.</li>
+    <li><strong>Un diario per i genitori firmato crittograficamente</strong> (Ed25519): vedi tutto ciò che è stato detto, con prova di integrità per riga, e cancella tutto, in qualsiasi momento, in locale.</li>
+    <li><strong>Il MOTORE:</strong> il registro conversazionale (quando AMI spiega e quando chiede) è deciso da un sistema di equazioni di sincronizzazione — la loro analisi dinamica è <a href="https://doi.org/10.5281/zenodo.21269201">pubblicata e riprodotta in modo indipendente</a>, e la soglia di accoppiamento viene da una regola di calibrazione derivata matematicamente, non indovinata.</li>
+  </ul>
+</section>
+
+<section class="fr">
+  <h2>Ce que c'est</h2>
+  <p><strong>Un prototype open source de compagnon IA pour enfants (7–12 ans), construit dans l'ordre inverse de l'industrie :</strong> d'abord la couche de sécurité, ensuite la conversation.</p>
+  <ul>
+    <li><strong>Fonctionne entièrement en local.</strong> Le modèle de langage vit sur ta propre machine (Ollama). Aucune conversation d'enfant ne quitte jamais l'ordinateur — pas de serveur central, pas de compte, pas de données à vendre.</li>
+    <li><strong>Chaque message passe par une détection de crise</strong> avant d'atteindre l'IA, et <strong>chaque réponse est validée</strong> avant d'atteindre l'enfant. Les signaux aigus interrompent la conversation et affichent de vraies ressources d'aide.</li>
+    <li><strong>Un journal parental signé cryptographiquement</strong> (Ed25519) : vois tout ce qui a été dit, avec preuve d'intégrité ligne par ligne, et efface tout, à tout moment, en local.</li>
+    <li><strong>Le MOTEUR :</strong> le registre conversationnel (quand AMI explique vs quand il questionne) est décidé par un système d'équations de synchronisation — leur analyse dynamique est <a href="https://doi.org/10.5281/zenodo.21269201">publiée et reproduite indépendamment</a>, et le seuil de couplage vient d'une règle de calibration dérivée mathématiquement, pas devinée.</li>
+  </ul>
+</section>
+
 <section>
-  <h2><span class="ro">Cum curge un mesaj</span><span class="en">How a message flows</span></h2>
+  <h2><span class="ro">Cum curge un mesaj</span><span class="en">How a message flows</span><span class="de">Wie eine Nachricht fließt</span><span class="es">Cómo fluye un mensaje</span><span class="it">Come scorre un messaggio</span><span class="fr">Comment circule un message</span></h2>
   <div class="pipeline">copil / child
    │
    ▼
@@ -169,7 +223,6 @@ copil / child          totul → jurnal semnat Ed25519 → părinte
     <li>Nu colectăm nimic pentru că nu avem unde: pagina asta e statică, aplicația e a ta.</li>
   </ul>
 </section>
-
 <section class="warn en">
   <h2>What it is NOT — stated before you ask</h2>
   <ul>
@@ -179,59 +232,123 @@ copil / child          totul → jurnal semnat Ed25519 → părinte
     <li>We collect nothing because there is nowhere to collect it: this page is static, the app is yours.</li>
   </ul>
 </section>
+<section class="warn de">
+  <h2>Was es NICHT ist — gesagt, bevor du fragst</h2>
+  <ul>
+    <li><strong>Kein fertiges Produkt</strong>, nicht für unbeaufsichtigte Nutzung durch Kinder gedacht. Ein Architektur-Prototyp (v0.2).</li>
+    <li>Die Krisenerkennung ist eine v0-Heuristik (RO/EN), <strong>klinisch nicht validiert</strong> — sie ersetzt keine Aufsicht durch Erwachsene.</li>
+    <li>Keine formale pädagogische Validierung, keine Nutzerstudien, keine „tausenden zufriedenen Familien" — stattdessen öffentlicher Code und laufende Tests.</li>
+    <li>Wir sammeln nichts, weil es nirgends hin könnte: Diese Seite ist statisch, die App gehört dir.</li>
+  </ul>
+</section>
+<section class="warn es">
+  <h2>Qué NO es — dicho antes de que preguntes</h2>
+  <ul>
+    <li><strong>No es un producto terminado</strong> ni está pensado para uso sin supervisión por niños. Es un prototipo de arquitectura (v0.2).</li>
+    <li>La detección de crisis es una heurística v0 (RO/EN), <strong>no validada clínicamente</strong> — no sustituye la supervisión de un adulto.</li>
+    <li>Sin validación pedagógica formal, sin estudios de usuarios, sin «miles de familias felices» — a cambio: código público y tests que se ejecutan.</li>
+    <li>No recopilamos nada porque no hay dónde: esta página es estática, la aplicación es tuya.</li>
+  </ul>
+</section>
+<section class="warn it">
+  <h2>Che cosa NON è — detto prima che tu lo chieda</h2>
+  <ul>
+    <li><strong>Non è un prodotto finito</strong> e non è destinato all'uso non supervisionato da parte dei bambini. È un prototipo di architettura (v0.2).</li>
+    <li>Il rilevamento di crisi è un'euristica v0 (RO/EN), <strong>non validata clinicamente</strong> — non sostituisce la supervisione di un adulto.</li>
+    <li>Nessuna validazione pedagogica formale, nessuno studio sugli utenti, nessuna «migliaia di famiglie felici» — in cambio: codice pubblico e test che girano.</li>
+    <li>Non raccogliamo nulla perché non c'è dove: questa pagina è statica, l'app è tua.</li>
+  </ul>
+</section>
+<section class="warn fr">
+  <h2>Ce que ce N'EST PAS — dit avant que tu ne demandes</h2>
+  <ul>
+    <li><strong>Pas un produit fini</strong>, pas destiné à un usage non surveillé par des enfants. Un prototype d'architecture (v0.2).</li>
+    <li>La détection de crise est une heuristique v0 (RO/EN), <strong>non validée cliniquement</strong> — elle ne remplace pas la surveillance d'un adulte.</li>
+    <li>Pas de validation pédagogique formelle, pas d'études utilisateurs, pas de « milliers de familles heureuses » — à la place : du code public et des tests qui tournent.</li>
+    <li>Nous ne collectons rien parce qu'il n'y a nulle part où le faire : cette page est statique, l'application est à toi.</li>
+  </ul>
+</section>
 
 <section>
-  <h2><span class="ro">Rulează-l acasă (10 minute)</span><span class="en">Run it at home (10 minutes)</span></h2>
+  <h2><span class="ro">Rulează-l acasă (10 minute)</span><span class="en">Run it at home (10 minutes)</span><span class="de">Zu Hause ausführen (10 Minuten)</span><span class="es">Ejecútalo en casa (10 minutos)</span><span class="it">Eseguilo a casa (10 minuti)</span><span class="fr">Exécute-le à la maison (10 minutes)</span></h2>
   <pre>git clone https://github.com/amidigiart/kinderagi-core
 cd kinderagi-core
 pip install -r requirements.txt
 pip install "ukbe-core @ git+https://github.com/amidigiart/ukbe-core@main"
 # instaleaza Ollama (ollama.com) apoi:  ollama pull gemma3:4b
 python app.py        # → http://localhost:8123</pre>
-  <p class="ro">Pentru un server de familie/școală cu HTTPS: <a href="https://github.com/amidigiart/kinderagi-core/tree/main/deploy">ghidul de deploy</a> (Docker + Caddy, ~€4/lună).</p>
-  <p class="en">For a family/school server with HTTPS: <a href="https://github.com/amidigiart/kinderagi-core/tree/main/deploy">the deploy guide</a> (Docker + Caddy, ~€4/month).</p>
+  <p class="ro">Pentru un server de familie/școală cu HTTPS: <a href="https://github.com/amidigiart/kinderagi-core/tree/main/deploy">ghidul de deploy</a> (Docker + Caddy, VPS în UE).</p>
+  <p class="en">For a family/school server with HTTPS: <a href="https://github.com/amidigiart/kinderagi-core/tree/main/deploy">the deploy guide</a> (Docker + Caddy, EU VPS).</p>
+  <p class="de">Für einen Familien-/Schulserver mit HTTPS: <a href="https://github.com/amidigiart/kinderagi-core/tree/main/deploy">der Deploy-Guide</a> (Docker + Caddy, EU-VPS).</p>
+  <p class="es">Para un servidor familiar/escolar con HTTPS: <a href="https://github.com/amidigiart/kinderagi-core/tree/main/deploy">la guía de despliegue</a> (Docker + Caddy, VPS en la UE).</p>
+  <p class="it">Per un server di famiglia/scuola con HTTPS: <a href="https://github.com/amidigiart/kinderagi-core/tree/main/deploy">la guida al deploy</a> (Docker + Caddy, VPS UE).</p>
+  <p class="fr">Pour un serveur famille/école avec HTTPS : <a href="https://github.com/amidigiart/kinderagi-core/tree/main/deploy">le guide de déploiement</a> (Docker + Caddy, VPS UE).</p>
 </section>
 
 <section>
-  <h2><span class="ro">Fundația verificabilă</span><span class="en">The verifiable foundation</span></h2>
+  <h2><span class="ro">Fundația verificabilă</span><span class="en">The verifiable foundation</span><span class="de">Die überprüfbare Grundlage</span><span class="es">La base verificable</span><span class="it">Le fondamenta verificabili</span><span class="fr">La fondation vérifiable</span></h2>
   <div class="grid">
-    <div class="card"><b>📄 <span class="ro">Lucrarea</span><span class="en">The paper</span></b><br>
+    <div class="card"><b>📄 <span class="ro">Lucrarea</span><span class="en">The paper</span><span class="de">Die Arbeit</span><span class="es">El artículo</span><span class="it">L'articolo</span><span class="fr">L'article</span></b><br>
       <span class="ro">Analiza dinamică a motorului: bifurcație Adler, regulă de calibrare, reproducere independentă.</span>
-      <span class="en">The engine's dynamical analysis: Adler bifurcation, calibration rule, independent reproduction.</span><br>
+      <span class="en">The engine's dynamical analysis: Adler bifurcation, calibration rule, independent reproduction.</span>
+      <span class="de">Die dynamische Analyse der Engine: Adler-Bifurkation, Kalibrierregel, unabhängige Reproduktion.</span>
+      <span class="es">El análisis dinámico del motor: bifurcación de Adler, regla de calibración, reproducción independiente.</span>
+      <span class="it">L'analisi dinamica del motore: biforcazione di Adler, regola di calibrazione, riproduzione indipendente.</span>
+      <span class="fr">L'analyse dynamique du moteur : bifurcation d'Adler, règle de calibration, reproduction indépendante.</span><br>
       <a href="https://github.com/amidigiart/p6-adler-ghost-peak">p6-adler-ghost-peak</a> · <a href="https://doi.org/10.5281/zenodo.21269201">DOI</a></div>
-    <div class="card"><b>⚙️ <span class="ro">Motorul</span><span class="en">The engine</span></b><br>
+    <div class="card"><b>⚙️ <span class="ro">Motorul</span><span class="en">The engine</span><span class="de">Die Engine</span><span class="es">El motor</span><span class="it">Il motore</span><span class="fr">Le moteur</span></b><br>
       <span class="ro">Kuramoto + Kalman + cuplare adaptivă, criptografie post-cuantică, 102/102 teste.</span>
-      <span class="en">Kuramoto + Kalman + adaptive coupling, post-quantum crypto, 102/102 tests.</span><br>
+      <span class="en">Kuramoto + Kalman + adaptive coupling, post-quantum crypto, 102/102 tests.</span>
+      <span class="de">Kuramoto + Kalman + adaptive Kopplung, Post-Quanten-Kryptografie, 102/102 Tests.</span>
+      <span class="es">Kuramoto + Kalman + acoplamiento adaptativo, criptografía poscuántica, 102/102 tests.</span>
+      <span class="it">Kuramoto + Kalman + accoppiamento adattivo, crittografia post-quantistica, 102/102 test.</span>
+      <span class="fr">Kuramoto + Kalman + couplage adaptatif, cryptographie post-quantique, 102/102 tests.</span><br>
       <a href="https://github.com/amidigiart/ukbe-core">ukbe-core</a> (Apache-2.0)</div>
-    <div class="card"><b>🌲 <span class="ro">Companionul</span><span class="en">The companion</span></b><br>
-      <span class="ro">Acest proiect: siguranță + jurnal semnat + MOTORUL, 17/17 teste.</span>
-      <span class="en">This project: safety + signed journal + the ENGINE, 17/17 tests.</span><br>
+    <div class="card"><b>🌲 <span class="ro">Companionul</span><span class="en">The companion</span><span class="de">Der Begleiter</span><span class="es">El compañero</span><span class="it">Il compagno</span><span class="fr">Le compagnon</span></b><br>
+      <span class="ro">Acest proiect: siguranță + jurnal semnat + MOTORUL + pacer adaptiv anti-dependență, 26/26 teste.</span>
+      <span class="en">This project: safety + signed journal + the ENGINE + an anti-addiction adaptive pacer, 26/26 tests.</span>
+      <span class="de">Dieses Projekt: Sicherheit + signiertes Journal + die ENGINE + ein Anti-Sucht-Lernpacer, 26/26 Tests.</span>
+      <span class="es">Este proyecto: seguridad + diario firmado + el MOTOR + un pacer adaptativo antiadicción, 26/26 tests.</span>
+      <span class="it">Questo progetto: sicurezza + diario firmato + il MOTORE + un pacer adattivo anti-dipendenza, 26/26 test.</span>
+      <span class="fr">Ce projet : sécurité + journal signé + le MOTEUR + un paceur adaptatif anti-addiction, 26/26 tests.</span><br>
       <a href="https://github.com/amidigiart/kinderagi-core">kinderagi-core</a> (Apache-2.0)</div>
   </div>
 </section>
 
 <section>
-  <h2><span class="ro">Cine</span><span class="en">Who</span></h2>
+  <h2><span class="ro">Cine</span><span class="en">Who</span><span class="de">Wer</span><span class="es">Quién</span><span class="it">Chi</span><span class="fr">Qui</span></h2>
   <p class="ro">Mihai Roșca — fost învățător (definitivat), cercetător independent, Brăila, România. Construit fără finanțare, pe hardware obișnuit, pentru fiul lui și pentru copiii ca el. Tot ce afirmă proiectul e verificabil în cod public — nimic nu trebuie crezut pe cuvânt.</p>
   <p class="en">Mihai Roșca — former schoolteacher, independent researcher, Brăila, Romania. Built with no funding, on ordinary hardware, for his son and children like him. Every claim this project makes is verifiable in public code — nothing has to be taken on faith.</p>
+  <p class="de">Mihai Roșca — ehemaliger Lehrer, unabhängiger Forscher, Brăila, Rumänien. Ohne Finanzierung gebaut, auf gewöhnlicher Hardware, für seinen Sohn und Kinder wie ihn. Alles, was dieses Projekt behauptet, ist in öffentlichem Code überprüfbar — nichts muss geglaubt werden.</p>
+  <p class="es">Mihai Roșca — exmaestro, investigador independiente, Brăila, Rumanía. Construido sin financiación, con hardware corriente, para su hijo y para los niños como él. Todo lo que afirma este proyecto es verificable en código público — nada hay que creer por fe.</p>
+  <p class="it">Mihai Roșca — ex maestro, ricercatore indipendente, Brăila, Romania. Costruito senza finanziamenti, su hardware comune, per suo figlio e per i bambini come lui. Tutto ciò che questo progetto afferma è verificabile nel codice pubblico — nulla va creduto sulla parola.</p>
+  <p class="fr">Mihai Roșca — ancien instituteur, chercheur indépendant, Brăila, Roumanie. Construit sans financement, sur du matériel ordinaire, pour son fils et les enfants comme lui. Tout ce que ce projet affirme est vérifiable dans du code public — rien n'est à croire sur parole.</p>
   <p>ORCID: <a href="https://orcid.org/0009-0001-1422-6209">0009-0001-1422-6209</a> · GitHub: <a href="https://github.com/amidigiart">amidigiart</a> · <a href="mailto:mihairosca1982@gmail.com">mihairosca1982@gmail.com</a></p>
 </section>
 
 <footer>
-  <span class="ro">KinderAGI — parte din Pădurea de Cod · cod: Apache-2.0 · conținut: CC BY 4.0 · fără cookies, fără tracking, fără cont</span>
-  <span class="en">KinderAGI — part of Pădurea de Cod (The Code Forest) · code: Apache-2.0 · content: CC BY 4.0 · no cookies, no tracking, no accounts</span>
+  <span class="ro">KinderAGI — parte din Pădurea de Cod & amiecosystems · cod: Apache-2.0 · conținut: CC BY 4.0 · fără cookies, fără tracking, fără cont</span>
+  <span class="en">KinderAGI — part of Pădurea de Cod (The Code Forest) & amiecosystems · code: Apache-2.0 · content: CC BY 4.0 · no cookies, no tracking, no accounts</span>
+  <span class="de">KinderAGI — Teil von Pădurea de Cod (Der Code-Wald) & amiecosystems · Code: Apache-2.0 · Inhalte: CC BY 4.0 · keine Cookies, kein Tracking, keine Konten</span>
+  <span class="es">KinderAGI — parte de Pădurea de Cod (El Bosque de Código) y amiecosystems · código: Apache-2.0 · contenido: CC BY 4.0 · sin cookies, sin rastreo, sin cuentas</span>
+  <span class="it">KinderAGI — parte di Pădurea de Cod (La Foresta di Codice) e amiecosystems · codice: Apache-2.0 · contenuti: CC BY 4.0 · niente cookie, niente tracciamento, niente account</span>
+  <span class="fr">KinderAGI — partie de Pădurea de Cod (La Forêt de Code) & amiecosystems · code : Apache-2.0 · contenu : CC BY 4.0 · sans cookies, sans pistage, sans comptes</span>
 </footer>
 </div>
 
 <script>
+const LANGS=['ro','en','de','es','it','fr'];
 function setLang(l){
-  document.body.className = l==='en' ? 'lang-en' : '';
-  document.getElementById('bro').className = l==='ro' ? 'on' : '';
-  document.getElementById('ben').className = l==='en' ? 'on' : '';
+  if(LANGS.indexOf(l)<0)l='ro';
+  document.body.className = l==='ro' ? '' : 'lang-'+l;
+  for(const x of LANGS){
+    const b=document.getElementById('b'+x);
+    if(b)b.className = x===l ? 'on' : '';
+  }
   document.documentElement.lang = l;
   try{localStorage.setItem('kag_lang', l)}catch(e){}
 }
-try{const s=localStorage.getItem('kag_lang'); if(s==='en')setLang('en');}catch(e){}
+try{const s=localStorage.getItem('kag_lang'); if(s&&s!=='ro')setLang(s);}catch(e){}
 </script>
 </body>
 </html>
